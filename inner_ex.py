@@ -49,3 +49,5 @@ except Exception as e:
     print('failed to insert', e)
 
 # ============= input id number from user, then print 'exist' if user exist in employee table
+id = int(input('whats your id?'))
+result = run_query_select("""SELECT FROM employees e where id = ?""", (id,))
