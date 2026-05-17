@@ -14,13 +14,15 @@ run_update_query(f"INSERT INTO departments VALUES (?, ?, ?)", (2,'Marketing',800
 run_update_query(f"INSERT INTO departments VALUES (?, ?, ?)", (3,'Sales',60000))
 run_update_query(f"INSERT INTO departments VALUES (?, ?, ?)", (4,'HR',45000))
 
+run_update_query("PRAGMA foreign_keys = ON;")
+
 run_update_query("""CREATE TABLE employees (
   id         INTEGER PRIMARY KEY,
   name       TEXT    NOT NULL,
   dept_id    INTEGER,
   salary     REAL    NOT NULL,
   FOREIGN KEY (dept_id) REFERENCES departments(id)
-);""")
+); """)
 
 run_update_query(f"INSERT INTO employees VALUES (?, ?, ?, ?)", (1,'Dana',1,9000))
 run_update_query(f"INSERT INTO employees VALUES (?, ?, ?, ?)", (2,'Omar',2,7200))
@@ -35,3 +37,15 @@ result = run_query_select("""SELECT e.name, d.dept_name, d.budget
 
 for e in result:
     print(e)
+
+# ================================ Interactive
+id = int(input('whats your id?'))
+name = input('whats your name?')
+dept_id = input('whats your dept_id?')
+salary = input('whats your salary?')
+try:
+    run_update_query(f"INSERT INTO employees VALUES (?, ?, ?, ?)", (id, name, dept_id, salary))
+except Exception as e:
+    print('failed to insert', e)
+
+# ============= input id number from user, then print 'exist' if user exist in employee table
